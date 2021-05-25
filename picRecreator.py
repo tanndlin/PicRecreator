@@ -18,6 +18,10 @@ def getRandomCircle(xMax, yMax):
     return [(x, y), (x + dx, y + dy)]
 
 
+def getRandomTriangle(xMax, yMax):
+    return[getRandomPos(xMax, yMax) for _ in range(3)]
+
+
 def getRandomColor(colors):
     return random.choice(colors)
 
@@ -29,6 +33,11 @@ def newImage(x, y):
 def drawRandomCircle(img, colors):
     draw = ImageDraw.Draw(img)
     draw.ellipse(getRandomCircle(x, y), fill=getRandomColor(colors))
+
+
+def drawRandomTriangle(img, colors):
+    draw = ImageDraw.Draw(img)
+    draw.polygon(getRandomTriangle(x, y), fill=getRandomColor(colors))
 
 
 def getFitness(ref, img):
@@ -63,7 +72,7 @@ for i in range(EPOCHS):
     images = [base.copy() for _ in range(BATCH_SIZE)]
 
     for j in range(1, len(images)):
-        drawRandomCircle(images[j], colors)
+        drawRandomTriangle(images[j], colors)
 
     fit = [getFitness(ref, img) for img in images]
 
